@@ -7,6 +7,7 @@ import com.xiao.music.dao.SingerMapper;
 import com.xiao.music.pojo.Singer;
 import com.xiao.music.service.SingerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  *@DATE 2021/9/28 9:38
  *@version 1.0
  */
+@Service
 public class SingerServiceImpl implements SingerService {
 
     @Autowired
