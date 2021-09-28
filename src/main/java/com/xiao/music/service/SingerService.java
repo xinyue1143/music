@@ -1,7 +1,6 @@
-package com.xiao.music.dao;
+package com.xiao.music.service;
 
 import com.xiao.music.pojo.Singer;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,23 +8,22 @@ import java.util.List;
  * Description: music
  * Created by 28191 on 2021/9/26
  */
-@Repository
-public interface SingerMapper {
+public interface SingerService {
 
     /**
-     * 增加
+     *增加
      */
-    public int insert(Singer singer);
+    public boolean insert(Singer singer);
 
     /**
-     * 修改
+     *修改
      */
-    public int update(Singer singer);
+    public boolean update(Singer singer);
 
     /**
      * 删除
      */
-    public int delete(Integer id);
+    public boolean delete(Integer id);
 
     /**
      * 根据主键查询整个对象
@@ -46,4 +44,6 @@ public interface SingerMapper {
      * 根据性别查询
      */
     public List<Singer> singerOfSex(Integer sex);
+
+
 }
