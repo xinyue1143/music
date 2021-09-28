@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiao.music.dao.SingerMapper;
 import com.xiao.music.pojo.Singer;
 import com.xiao.music.service.SingerService;
 import com.xiao.music.utils.Consts;
@@ -40,6 +41,7 @@ public class SingerController {
 
     @Autowired
     private SingerService singerService;
+
 
     /**
      * 添加歌手
@@ -121,13 +123,10 @@ public class SingerController {
         return singerService.singerOfSex(Integer.parseInt(sex));
     }
 
-    /**
-     * 分页
-     */
-    @GetMapping("findAllSinger")
-    public Object findPage(@RequestParam(defaultValue = "1")Integer pageNum,
-                           @RequestParam(defaultValue = "5")Integer pageSize,
-                           @RequestParam(defaultValue = "")String search ){
+    @GetMapping("/findAllSinger")
+    public Object findPage(@RequestParam(defaultValue = "2")Integer pageNum,
+                              @RequestParam(defaultValue = "5")Integer pageSize,
+                              @RequestParam(defaultValue = "")String search ){
         LambdaQueryWrapper<Singer> wrapper = Wrappers.<Singer>lambdaQuery();
         if(StrUtil.isNotBlank(search)){
             wrapper.like(Singer::getName, search);

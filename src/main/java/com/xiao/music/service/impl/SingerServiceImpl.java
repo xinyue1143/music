@@ -33,7 +33,7 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public boolean insert(Singer singer) {
-        return singerMapper.insert(singer)>0;
+        return singerMapper.myInsert(singer)>0;
     }
 
     /**
@@ -43,7 +43,7 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public boolean update(Singer singer) {
-        return singerMapper.update(singer)>0;
+        return singerMapper.myUpdate(singer)>0;
     }
 
     /**
@@ -53,7 +53,7 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public boolean delete(Integer id) {
-        return singerMapper.delete(id)>0;
+        return singerMapper.myDelete(id)>0;
     }
 
     /**
@@ -63,7 +63,7 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public Singer selectByPrimaryKey(Integer id) {
-        return singerMapper.selectByPrimaryKey(id);
+        return singerMapper.mySelectByPrimaryKey(id);
     }
 
     /**
@@ -71,7 +71,7 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public List<Singer> allSinger() {
-        return singerMapper.allSinger();
+        return singerMapper.myAllSinger();
     }
 
     /**
@@ -81,7 +81,7 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public List<Singer> singerOfName(String name) {
-        return singerMapper.singerOfName(name);
+        return singerMapper.mySingerOfName(name);
     }
 
     /**
@@ -91,17 +91,13 @@ public class SingerServiceImpl implements SingerService {
      */
     @Override
     public List<Singer> singerOfSex(Integer sex) {
-        return singerMapper.singerOfSex(sex);
+        return singerMapper.mySingerOfSex(sex);
     }
 
-    /**
-     * 分页查询
-     * @param page
-     * @param wrapper
-     * @return
-     */
     @Override
-    public Page<Singer> selectPage(Page<Singer> page, LambdaQueryWrapper<Singer> wrapper) {
+    public Page<Singer> selectPage(Page page, LambdaQueryWrapper wrapper) {
         return singerMapper.selectPage(page,wrapper);
     }
+
+
 }

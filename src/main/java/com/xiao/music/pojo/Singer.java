@@ -2,6 +2,10 @@ package com.xiao.music.pojo;/**
  * Description: music
  * Created by 28191 on 2021/9/27
  */
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -11,9 +15,10 @@ import java.util.Date;
  *@DATE 2021/9/27 20:16
  *@version 1.0
  */
-
+@TableName("singer")
 public class Singer implements Serializable {
     /*主键*/
+    @TableId(type = IdType.AUTO)
     private Integer id;
     /*账号*/
     private String name;
@@ -27,6 +32,19 @@ public class Singer implements Serializable {
     private String location;
     /*简介*/
     private String introduction;
+
+    public Singer() {
+    }
+
+    public Singer(Integer id, String name, Byte sex, String pic, Date birth, String location, String introduction) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.pic = pic;
+        this.birth = birth;
+        this.location = location;
+        this.introduction = introduction;
+    }
 
     public Integer getId() {
         return id;

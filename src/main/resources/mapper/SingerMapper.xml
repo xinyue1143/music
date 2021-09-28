@@ -19,7 +19,7 @@
         id,name,sex,pic,birth,location,introduction
     </sql>
 
-    <insert id="insert" parameterType="com.xiao.music.pojo.Singer">
+    <insert id="myInsert" parameterType="com.xiao.music.pojo.Singer">
         insert into singer
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -69,7 +69,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.xiao.music.pojo.Singer">
+    <update id="myUpdate" parameterType="com.xiao.music.pojo.Singer">
         update singer
         <set>
             <if test="name != null">
@@ -94,32 +94,32 @@
         where id = #{id}
     </update>
 
-    <delete id="delete" parameterType="java.lang.Integer">
+    <delete id="myDelete" parameterType="java.lang.Integer">
         delete from singer
         where id=#{id}
     </delete>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="mySelectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from singer
         where id=#{id}
     </select>
 
-    <select id="allSinger" resultMap="BaseResultMap">
+    <select id="myAllSinger" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from singer
     </select>
 
-    <select id="singerOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="mySingerOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from singer
         where name like #{name}
     </select>
 
-    <select id="singerOfSex" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="mySingerOfSex" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from singer

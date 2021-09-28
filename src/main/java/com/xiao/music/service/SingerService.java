@@ -1,6 +1,7 @@
 package com.xiao.music.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiao.music.pojo.Singer;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Description: music
  * Created by 28191 on 2021/9/26
  */
-public interface SingerService {
+public interface SingerService <T>{
 
     /**
      *增加
@@ -48,5 +49,5 @@ public interface SingerService {
      */
     public List<Singer> singerOfSex(Integer sex);
 
-    public Page<Singer> selectPage(Page<Singer> page, LambdaQueryWrapper<Singer> wrapper);
+    public Page<Singer> selectPage(Page<Singer> page,LambdaQueryWrapper<Singer> wrapper);
 }
