@@ -38,6 +38,7 @@ public class AdminController {
         if (flag){
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登陆成功");
+            jsonObject.put("userName", name);
             session.setAttribute(Consts.NAME,name);
             return jsonObject;
         }
