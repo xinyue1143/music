@@ -1,7 +1,10 @@
 package com.xiao.music.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiao.music.pojo.Singer;
 
+import java.sql.Wrapper;
 import java.util.List;
 
 /**
@@ -45,5 +48,5 @@ public interface SingerService {
      */
     public List<Singer> singerOfSex(Integer sex);
 
-
+    public Page<Singer> selectPage(Page<Singer> page, LambdaQueryWrapper<Singer> wrapper);
 }

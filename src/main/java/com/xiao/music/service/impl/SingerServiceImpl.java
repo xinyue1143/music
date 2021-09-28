@@ -3,6 +3,8 @@ package com.xiao.music.service.impl;/**
  * Created by 28191 on 2021/9/28
  */
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiao.music.dao.SingerMapper;
 import com.xiao.music.pojo.Singer;
 import com.xiao.music.service.SingerService;
@@ -90,5 +92,16 @@ public class SingerServiceImpl implements SingerService {
     @Override
     public List<Singer> singerOfSex(Integer sex) {
         return singerMapper.singerOfSex(sex);
+    }
+
+    /**
+     * 分页查询
+     * @param page
+     * @param wrapper
+     * @return
+     */
+    @Override
+    public Page<Singer> selectPage(Page<Singer> page, LambdaQueryWrapper<Singer> wrapper) {
+        return singerMapper.selectPage(page,wrapper);
     }
 }

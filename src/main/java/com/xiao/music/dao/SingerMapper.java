@@ -1,5 +1,6 @@
 package com.xiao.music.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xiao.music.pojo.Singer;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by 28191 on 2021/9/26
  */
 @Repository
-public interface SingerMapper {
+public interface SingerMapper extends BaseMapper<Singer> {
 
     /**
      * 增加
