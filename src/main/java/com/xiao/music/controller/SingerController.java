@@ -123,7 +123,14 @@ public class SingerController {
         return singerService.singerOfSex(Integer.parseInt(sex));
     }
 
-    @GetMapping("/findAllSinger")
+    /**
+     * 分页查询
+     * @param pageNum
+     * @param pageSize
+     * @param search
+     * @return
+     */
+    @GetMapping("/page")
     public Object findPage(@RequestParam(defaultValue = "2")Integer pageNum,
                               @RequestParam(defaultValue = "5")Integer pageSize,
                               @RequestParam(defaultValue = "")String search ){
