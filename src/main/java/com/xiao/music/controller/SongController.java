@@ -113,7 +113,22 @@ public class SongController {
         return flag;
     }
 
-
+    /**
+     * 修改歌曲
+     */
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public Object updateSinger(@RequestBody Song song){
+        JSONObject jsonObject = new JSONObject();
+        boolean flag = songService.update(song);
+        if(flag){   //保存成功
+            jsonObject.put(Consts.CODE,1);
+            jsonObject.put(Consts.MSG,"修改成功");
+            return jsonObject;
+        }
+        jsonObject.put(Consts.CODE,0);
+        jsonObject.put(Consts.MSG,"修改失败");
+        return jsonObject;
+    }
 
 
     /**

@@ -23,6 +23,9 @@ import java.util.List;
 @Service
 public class SingerServiceImpl implements SingerService {
 
+
+    char a = '1';
+
     @Autowired
     private SingerMapper singerMapper;
 
