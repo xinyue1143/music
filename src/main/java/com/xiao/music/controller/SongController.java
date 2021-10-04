@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *@Classname SongController
@@ -85,6 +86,7 @@ public class SongController {
      * @param pageNum
      * @param pageSize
      * @param search
+     * @param singerId 歌曲管理中根据歌手id找到他的歌曲
      * @return
      */
     @GetMapping("/page")
@@ -128,6 +130,34 @@ public class SongController {
         jsonObject.put(Consts.CODE,0);
         jsonObject.put(Consts.MSG,"修改失败");
         return jsonObject;
+    }
+
+
+    /*
+    根据歌曲id查找
+     */
+    @GetMapping("/detail")
+    public Object detail(@RequestParam("songId") Integer songId){
+        return songService.selectByPrimaryKey(songId);
+    }
+
+    /*
+    根据歌曲名字查找
+     */
+    @GetMapping("/songOfName")
+    public Object songOfName(@RequestParam("songName") String songName){
+        JSONObject jsonObject = new JSONObject();
+        List<Song> songs = songService.songOfName(songName);
+        if(songs.size() == 0){
+            jsonObject.put(Consts.CODE,0);
+            jsonObject.put(Consts.MSG,"没有找到歌曲");
+        }else {
+            jsonObject.put(Consts.CODE,1);
+            jsonObject.put(Consts.MSG,"已找到该歌曲");
+            jsonObject.put("data",songs.get(0));
+        }
+        return jsonObject;
+
     }
 
 

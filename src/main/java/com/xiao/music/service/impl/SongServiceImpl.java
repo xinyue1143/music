@@ -106,6 +106,5 @@ public class SongServiceImpl implements SongService {
     @Override
     public Page<Song> selectPage(Page<Song> page, LambdaQueryWrapper<Song> wrapper) {
         return songMapper.selectPage(page,wrapper);
-
     }
 }

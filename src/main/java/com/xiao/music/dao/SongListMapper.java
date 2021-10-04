@@ -28,6 +28,7 @@ public interface SongListMapper extends BaseMapper<SongList> {
      */
     public int myDelete(Integer id);
 
+
     /**
      * 根据主键查询整个对象
      */
