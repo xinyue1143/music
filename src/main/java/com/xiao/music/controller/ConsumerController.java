@@ -9,8 +9,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiao.music.pojo.Singer;
-import com.xiao.music.service.SingerService;
+import com.xiao.music.pojo.Consumer;
+import com.xiao.music.service.ConsumerService;
 import com.xiao.music.utils.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,27 +22,27 @@ import java.io.IOException;
 
 
 /**
- *@Classname SingerController
+ *@Classname ConsumerController
  *@Description TODO
  *@Author 28191
  *@DATE 2021/9/28 9:42
  *@version 1.0
  */
 @RestController
-@RequestMapping("/singer")
-public class SingerController {
+@RequestMapping("/consumer")
+public class ConsumerController {
 
     @Autowired
-    private SingerService singerService;
+    private ConsumerService consumerService;
 
 
     /**
-     * 添加歌手
+     * 添加前端用户
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public Object addSinger(@RequestBody Singer singer){
+    public Object addConsumer(@RequestBody Consumer consumer){
         JSONObject jsonObject = new JSONObject();
-        boolean flag = singerService.insert(singer);
+        boolean flag = consumerService.insert(consumer);
         if(flag){   //保存成功
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"添加成功");
@@ -54,12 +54,12 @@ public class SingerController {
     }
 
     /**
-     * 修改歌手
+     * 修改前端用户
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public Object updateSinger(@RequestBody Singer singer){
+    public Object updateConsumer(@RequestBody Consumer consumer){
         JSONObject jsonObject = new JSONObject();
-        boolean flag = singerService.update(singer);
+        boolean flag = consumerService.update(consumer);
         if(flag){   //保存成功
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"修改成功");
@@ -72,12 +72,12 @@ public class SingerController {
 
 
     /**
-     * 删除歌手
+     * 删除前端用户
      */
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
-    public Object deleteSinger(HttpServletRequest request){
+    public Object deleteConsumer(HttpServletRequest request){
         String id = request.getParameter("id").trim();          //主键
-        boolean flag = singerService.delete(Integer.parseInt(id));
+        boolean flag = consumerService.delete(Integer.parseInt(id));
         return flag;
     }
 
@@ -87,34 +87,17 @@ public class SingerController {
     @RequestMapping(value = "/selectByPrimaryKey",method = RequestMethod.GET)
     public Object selectByPrimaryKey(HttpServletRequest request){
         String id = request.getParameter("id").trim();          //主键
-        return singerService.selectByPrimaryKey(Integer.parseInt(id));
+        return consumerService.selectByPrimaryKey(Integer.parseInt(id));
     }
 
     /**
-     * 查询所有歌手
+     * 查询所有前端用户
      */
-    @RequestMapping(value = "/allSinger",method = RequestMethod.GET)
-    public Object allSinger(HttpServletRequest request){
-        return singerService.allSinger();
+    @RequestMapping(value = "/allConsumer",method = RequestMethod.GET)
+    public Object allConsumer(HttpServletRequest request){
+        return consumerService.allConsumer();
     }
 
-    /**
-     * 根据歌手名字模糊查询列表
-     */
-    @RequestMapping(value = "/singerOfName",method = RequestMethod.GET)
-    public Object singerOfName(HttpServletRequest request){
-        String name = request.getParameter("name").trim();          //歌手名字
-        return singerService.singerOfName("%"+name+"%");
-    }
-
-    /**
-     * 根据性别查询
-     */
-    @RequestMapping(value = "/singerOfSex",method = RequestMethod.GET)
-    public Object singerOfSex(HttpServletRequest request){
-        String sex = request.getParameter("sex").trim();          //性别
-        return singerService.singerOfSex(Integer.parseInt(sex));
-    }
 
     /**
      * 分页查询
@@ -127,19 +110,38 @@ public class SingerController {
     public Object findPage(@RequestParam(defaultValue = "2")Integer pageNum,
                               @RequestParam(defaultValue = "5")Integer pageSize,
                               @RequestParam(defaultValue = "")String search ){
-        LambdaQueryWrapper<Singer> wrapper = Wrappers.<Singer>lambdaQuery();
+        LambdaQueryWrapper<Consumer> wrapper = Wrappers.<Consumer>lambdaQuery();
         if(StrUtil.isNotBlank(search)){
-            wrapper.like(Singer::getName, search);
+            wrapper.like(Consumer::getUsername, search);
         }
 
-        Page<Singer> singerPage = singerService.selectPage(new Page<>(pageNum, pageSize), wrapper);
-        return singerPage;
+        Page<Consumer> consumerPage = consumerService.selectPage(new Page<>(pageNum, pageSize), wrapper);
+        return consumerPage;
     }
+
     /**
-     * 更新歌手图片
+     * 按用户名查询用户
      */
-    @RequestMapping(value = "/updateSingerPic",method = RequestMethod.POST)
-    public Object updateSingerPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id")int id){
+    @GetMapping("/consumerOfName")
+    public Object consumerOfName(@RequestParam("username") String username){
+        Consumer consumer = consumerService.getByUsername(username);
+        JSONObject jsonObject = new JSONObject();
+        if (consumer != null){
+            jsonObject.put(Consts.CODE,1);
+            jsonObject.put(Consts.MSG,"该用户名已存在");
+        }else {
+            jsonObject.put(Consts.CODE,0);
+            jsonObject.put(Consts.MSG,"用户名不存在，可以使用");
+        }
+        return jsonObject;
+    }
+
+
+    /**
+     * 更新前端用户图片
+     */
+    @RequestMapping(value = "/updateConsumerPic",method = RequestMethod.POST)
+    public Object updateConsumerPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id")int id){
         JSONObject jsonObject = new JSONObject();
         if(avatorFile.isEmpty()){
             jsonObject.put(Consts.CODE,0);
@@ -149,8 +151,7 @@ public class SingerController {
         //文件名=当前时间到毫秒+原来的文件名
         String fileName = System.currentTimeMillis()+avatorFile.getOriginalFilename();
         //文件路径
-        String filePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"img"
-                +System.getProperty("file.separator")+"singerPic";
+        String filePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"avatorImages";
         //如果文件路径不存在，新增该路径
         File file1 = new File(filePath);
         if(!file1.exists()){
@@ -159,17 +160,17 @@ public class SingerController {
         //实际的文件地址
         File dest = new File(filePath+System.getProperty("file.separator")+fileName);
         //存储到数据库里的相对文件地址
-        String storeAvatorPath = "/img/singerPic/"+fileName;
+        String storeAvatorPath = "/avatorImages/"+fileName;
         try {
             avatorFile.transferTo(dest);
-            Singer singer = new Singer();
-            singer.setId(id);
-            singer.setPic(storeAvatorPath);
-            boolean flag = singerService.update(singer);
+            Consumer consumer = new Consumer();
+            consumer.setId(id);
+            consumer.setAvator(storeAvatorPath);
+            boolean flag = consumerService.update(consumer);
             if(flag){
                 jsonObject.put(Consts.CODE,1);
                 jsonObject.put(Consts.MSG,"上传成功");
-                jsonObject.put("pic",storeAvatorPath);
+                jsonObject.put("avator",storeAvatorPath);
                 return jsonObject;
             }
             jsonObject.put(Consts.CODE,0);

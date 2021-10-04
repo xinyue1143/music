@@ -3,6 +3,8 @@ package com.xiao.music.service.impl;/**
  * Created by 28191 on 2021/10/4
  */
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiao.music.dao.ConsumerMapper;
 import com.xiao.music.pojo.Consumer;
 import com.xiao.music.service.ConsumerService;
@@ -91,5 +93,10 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public Consumer getByUsername(String username) {
         return consumerMapper.getByUsername(username);
+    }
+
+    @Override
+    public Page<Consumer> selectPage(Page<Consumer> page, LambdaQueryWrapper<Consumer> wrapper) {
+        return consumerMapper.selectPage(page,wrapper);
     }
 }

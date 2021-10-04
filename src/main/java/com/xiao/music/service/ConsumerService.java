@@ -1,6 +1,9 @@
 package com.xiao.music.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiao.music.pojo.Consumer;
+import com.xiao.music.pojo.Singer;
 
 import java.util.List;
 
@@ -43,4 +46,7 @@ public interface ConsumerService {
      * 根据账号查询
      */
     public Consumer getByUsername(String username);
+
+    public Page<Consumer> selectPage(Page<Consumer> page, LambdaQueryWrapper<Consumer> wrapper);
+
 }

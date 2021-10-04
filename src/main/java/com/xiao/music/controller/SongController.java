@@ -160,6 +160,14 @@ public class SongController {
 
     }
 
+    /**
+     * 查询所有歌曲
+     */
+    @GetMapping("/allSong")
+    public Object allSong(){
+        return songService.allSong();
+    }
+
 
     /**
      * 更新歌手图片
