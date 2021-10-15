@@ -119,7 +119,7 @@ public class SongListController {
     @RequestMapping(value = "/likeStyle",method = RequestMethod.GET)
     public Object likeStyle(HttpServletRequest request){
         String style = request.getParameter("style").trim();          //歌单名字
-        return songListService.likeTitle("%"+style+"%");
+        return songListService.likeStyle("%"+style+"%");
     }
 
     /**
@@ -130,6 +130,9 @@ public class SongListController {
 //        String sex = request.getParameter("sex").trim();          //性别
 //        return SongListService.SongListOfSex(Integer.parseInt(sex));
 //    }
+
+
+
 
     /**
      * 分页查询

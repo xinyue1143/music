@@ -131,10 +131,25 @@ public class SongController {
         jsonObject.put(Consts.MSG,"修改失败");
         return jsonObject;
     }
-
+    /*
+    根据歌曲名字模糊查找
+     */
+    @GetMapping("/likeSongOfName")
+    public Object likeSongOfName(HttpServletRequest request){
+        String songName = request.getParameter("songName");
+        return songService.likeSongOfName(songName);
+    }
+    /**
+     * 根据歌手id查询歌曲
+     */
+    @RequestMapping(value = "/singer/detail",method = RequestMethod.GET)
+    public Object songOfSingerId(HttpServletRequest request){
+        String singerId = request.getParameter("singerId");
+        return songService.songOfSingerId(Integer.parseInt(singerId));
+    }
 
     /*
-    根据歌曲id查找
+    根据歌曲id精确查找
      */
     @GetMapping("/detail")
     public Object detail(@RequestParam("songId") Integer songId){
@@ -142,7 +157,7 @@ public class SongController {
     }
 
     /*
-    根据歌曲名字查找
+    根据歌曲名字精确查找
      */
     @GetMapping("/songOfName")
     public Object songOfName(@RequestParam("songName") String songName){

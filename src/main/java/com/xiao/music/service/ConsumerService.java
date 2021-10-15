@@ -47,6 +47,7 @@ public interface ConsumerService {
      */
     public Consumer getByUsername(String username);
 
+
     public Page<Consumer> selectPage(Page<Consumer> page, LambdaQueryWrapper<Consumer> wrapper);
 
 }

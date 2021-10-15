@@ -100,7 +100,7 @@ public class SongListServiceImpl implements SongListService {
      * @param style
      */
     @Override
-    public List<SongList> likeStyle(Integer style) {
+    public List<SongList> likeStyle(String style) {
         return songListMapper.likeStyle(style);
     }
 

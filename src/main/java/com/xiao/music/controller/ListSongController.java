@@ -49,6 +49,15 @@ public class ListSongController {
     }
 
     /**
+     * 根据歌单id查询歌曲
+     */
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    public Object detail(HttpServletRequest request){
+        String songListId = request.getParameter("songListId");
+        return listSongService.listSongOfSongListId(Integer.parseInt(songListId));
+    }
+
+    /**
      * 分页查询
      * @param pageNum
      * @param pageSize

@@ -52,7 +52,7 @@ public interface SongListMapper extends BaseMapper<SongList> {
     /**
      * 根据风格模糊查询列表
      */
-    public List<SongList> likeStyle(Integer style);
+    public List<SongList> likeStyle(String style);
 }
 
 

@@ -55,7 +55,7 @@ public interface SongListService {
     /**
      * 根据风格模糊查询列表
      */
-    public List<SongList> likeStyle(Integer style);
+    public List<SongList> likeStyle(String style);
 
     public Page<SongList> selectPage(Page<SongList> page, LambdaQueryWrapper<SongList> wrapper);
 
