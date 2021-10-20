@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 
@@ -183,6 +184,20 @@ public class ConsumerController {
             return jsonObject;
         }
     }
+
+    /**
+     * 前端用户注销
+     */
+    @GetMapping("/userLogOut")
+    public Object logout(HttpServletRequest request){
+        JSONObject jsonObject = new JSONObject();
+        String res1 = (String) request.getSession().getAttribute("username");
+        request.getSession().invalidate();
+        jsonObject.put(Consts.CODE,1);
+        jsonObject.put(Consts.MSG,"用户退出");
+        return jsonObject;
+    }
+
     /**
      * 前端用户登录
      */
@@ -191,6 +206,7 @@ public class ConsumerController {
         JSONObject jsonObject = new JSONObject();
         String username = request.getParameter("username").trim();     //账号
         String password = request.getParameter("password").trim();     //密码
+        request.getSession().setAttribute("username",username);
         if(username==null||username.equals("")){
             jsonObject.put(Consts.CODE,0);
             jsonObject.put(Consts.MSG,"用户名不能为空");

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiao.music.dao.RecordMapper">
+    <resultMap id="BaseResultMap" type="com.xiao.music.pojo.Record" >
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="from_name" jdbcType="VARCHAR" property="fromName"/>
+        <result column="to_name" jdbcType="VARCHAR" property="toName"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.xiao.music.pojo.Record">
+        insert into record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="fromName != null">
+                from_name,
+            </if>
+            <if test="toName != null">
+                to_name,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="fromName != null">
+                #{fromName},
+            </if>
+            <if test="toName != null">
+                #{toName},
+            </if>
+            <if test="message != null">
+                #{message},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectRecordNum" resultType="java.lang.Integer">
+        select count(*)
+        from record
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
