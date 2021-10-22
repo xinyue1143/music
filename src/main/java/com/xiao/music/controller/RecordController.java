@@ -52,4 +52,14 @@ public class RecordController {
         jsonObject.put(Consts.MSG,"发送失败");
         return jsonObject;
     }
+
+    /**
+     * 查询聊天信息
+     */
+    @RequestMapping(value = "/record/detail",method = RequestMethod.GET)
+    public Object allSinger(HttpServletRequest request){
+        String firstUser = request.getParameter("firstUser");
+        String secondUser = request.getParameter("secondUser");
+        return recordService.selectRecordByUsers(firstUser,secondUser);
+    }
 }

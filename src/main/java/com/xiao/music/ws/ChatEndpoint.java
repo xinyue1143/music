@@ -3,14 +3,16 @@ package com.xiao.music.ws;/**
  * Created by 28191 on 2021/10/18
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xiao.music.pojo.Message;
 import com.xiao.music.utils.MessageUtils;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
 import com.xiao.music.config.WebSocketConfig;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -74,6 +76,17 @@ public class ChatEndpoint {
     @OnMessage
     //接收到客户端发送的数据时被调用
     public void onMessage(String message,Session session){
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Message mess = mapper.readValue(message,Message.class);
+            String toName = mess.getToName();
+            String data =  mess.getMessage();
+            String username = (String) httpSession.getAttribute("username");
+            String resultMessage = MessageUtils.getMessage(false,username,data);
+            onlineUsers.get(toName).session.getBasicRemote().sendText(resultMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

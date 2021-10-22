@@ -9,6 +9,8 @@ import com.xiao.music.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *@Classname RecordServiceImpl
  *@Description TODO
@@ -30,5 +32,10 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public int selectRecordNum() {
         return recordMapper.selectRecordNum();
+    }
+
+    @Override
+    public List<Record> selectRecordByUsers(String firstUser, String secondUser) {
+        return recordMapper.selectRecordByUsers(firstUser,secondUser);
     }
 }
