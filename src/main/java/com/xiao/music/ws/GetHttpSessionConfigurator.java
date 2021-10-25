@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.HandshakeResponse;
 import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpointConfig;
+import java.util.List;
+import java.util.Map;
 
 /**
  *@Classname GetHttpSessionConfigurator
@@ -21,6 +23,9 @@ public class GetHttpSessionConfigurator extends ServerEndpointConfig.Configurato
     @Override
     public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
         HttpSession httpSession = (HttpSession) request.getHttpSession();
+        Map<String, List<String>> headers = request.getHeaders();
+//        List<String> authorization = headers.get("Authorization");
+        System.out.println(headers);
         //将HttpSession对象存储到配置对象中
         sec.getUserProperties().put(HttpSession.class.getName(),httpSession);
     }

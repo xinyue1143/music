@@ -4,7 +4,6 @@ package com.xiao.music.controller;/**
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.xiao.music.pojo.Rank;
 import com.xiao.music.pojo.Record;
 import com.xiao.music.service.RecordService;
 import com.xiao.music.utils.Consts;
@@ -53,6 +52,16 @@ public class RecordController {
         return jsonObject;
     }
 
+    @RequestMapping(value = "/record/total",method = RequestMethod.GET)
+    public Object total(HttpServletRequest request){
+        JSONObject jsonObject = new JSONObject();
+        Integer total = recordService.selectRecordNum();
+        jsonObject.put(Consts.CODE,1);
+        jsonObject.put(Consts.MSG,"获取成功");
+        jsonObject.put("total",total);
+        return jsonObject;
+    }
+
     /**
      * 查询聊天信息
      */
@@ -60,6 +69,7 @@ public class RecordController {
     public Object allSinger(HttpServletRequest request){
         String firstUser = request.getParameter("firstUser");
         String secondUser = request.getParameter("secondUser");
-        return recordService.selectRecordByUsers(firstUser,secondUser);
+        Integer total = Integer.parseInt(request.getParameter("total"));
+        return recordService.selectRecordByUsers(firstUser,secondUser,total);
     }
 }

@@ -35,7 +35,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<Record> selectRecordByUsers(String firstUser, String secondUser) {
-        return recordMapper.selectRecordByUsers(firstUser,secondUser);
+    public List<Record> selectRecordByUsers(String firstUser, String secondUser,Integer total) {
+        return recordMapper.selectRecordByUsers(firstUser,secondUser,total);
     }
 }

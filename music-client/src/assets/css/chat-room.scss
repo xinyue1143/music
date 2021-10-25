@@ -1,0 +1,12 @@
+@import "var.scss";
+@import "global.scss";
+
+.chat-room{
+  padding-top: 30px;
+  margin: auto;
+  margin-top: $header-height + 20px;
+  background-color: $color-white;
+  border-radius: 12px;
+  width: 900px;
+  position: relative;
+}

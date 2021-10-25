@@ -47,10 +47,10 @@
         from record
     </select>
 
-    <select id="selectRecordByUsers" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectRecordByUsers" resultMap="BaseResultMap">
         select from_name,to_name,message
         from record
-        where from_name=#{firstUser} AND to_name=#{secondUser} OR from_name=#{secondUser} AND to_name=#{firstUser}
+        where id>#{total} AND ((from_name=#{firstUser} AND to_name=#{secondUser}) OR (from_name=#{secondUser} AND to_name=#{firstUser}))
         ORDER BY id
     </select>
 

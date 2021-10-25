@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiao.music.pojo.Consumer;
 import com.xiao.music.service.ConsumerService;
 import com.xiao.music.utils.Consts;
+import com.xiao.music.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -227,6 +228,7 @@ public class ConsumerController {
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登录成功");
             jsonObject.put("userMsg",consumerService.getByUsername(username));
+            jsonObject.put("token", JwtUtils.createToken(username));
             return jsonObject;
         }
         jsonObject.put(Consts.CODE,0);

@@ -16,5 +16,5 @@ public interface RecordMapper {
 
     public int selectRecordNum();
 
-    public List<Record> selectRecordByUsers(String firstUser,String secondUser);
+    public List<Record> selectRecordByUsers(String firstUser,String secondUser,Integer total);
 }

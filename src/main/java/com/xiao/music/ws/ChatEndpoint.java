@@ -37,6 +37,7 @@ public class ChatEndpoint {
     //声明Httpsession对象，之前保存过用户名
     private HttpSession httpSession;
 
+
     @OnOpen
     // 连接建立时被调用
     public void onOpen(Session session, EndpointConfig config){
@@ -93,6 +94,13 @@ public class ChatEndpoint {
     @OnClose
     //连接关闭时被调用
     public void onClose(Session session){
+        String username = (String) this.httpSession.getAttribute("username");
+        onlineUsers.remove(username);
+        //将当前在线的所有用户名推送给所有客户端
+        //1.获取消息
+        String message = MessageUtils.getMessage(true,null,getNames());
+        //2.调用方法进行系统消息的推送
+        broadcastAllUsers(message);
         System.out.println("连接已关闭");
     }
 }
